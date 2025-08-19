@@ -7,6 +7,24 @@ from typing import List, Dict, Any, Optional
 import traceback
 import sys
 import io
+import platform
+
+# Set up headless rendering environment
+def setup_headless_rendering():
+    """Configure environment for headless rendering on EC2/server environments"""
+    if platform.system() == 'Linux':
+        # Set environment variables for headless rendering
+        os.environ['DISPLAY'] = os.environ.get('DISPLAY', ':99')
+        os.environ['MESA_GL_VERSION_OVERRIDE'] = '3.3'
+        os.environ['MESA_GLSL_VERSION_OVERRIDE'] = '330'
+        os.environ['GALLIUM_DRIVER'] = 'llvmpipe'
+        os.environ['LIBGL_ALWAYS_SOFTWARE'] = '1'
+
+# Call setup immediately
+setup_headless_rendering()
+
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend
 import matplotlib.pyplot as plt
 
 try:
@@ -29,6 +47,35 @@ try:
 except ImportError:
     PIL_AVAILABLE = False
     print("Warning: Pillow not available. Install with: pip install Pillow")
+
+try:
+    from pyvirtualdisplay import Display
+    PYVIRTUALDISPLAY_AVAILABLE = True
+except ImportError:
+    PYVIRTUALDISPLAY_AVAILABLE = False
+    print("Warning: pyvirtualdisplay not available. Install with: pip install pyvirtualdisplay")
+
+# Global virtual display instance
+_virtual_display = None
+
+def ensure_virtual_display():
+    """Ensure virtual display is running for headless rendering"""
+    global _virtual_display
+    
+    if platform.system() != 'Linux':
+        return True  # Not needed on non-Linux systems
+    
+    if PYVIRTUALDISPLAY_AVAILABLE and _virtual_display is None:
+        try:
+            _virtual_display = Display(visible=0, size=(1024, 768))
+            _virtual_display.start()
+            print("Virtual display started successfully")
+            return True
+        except Exception as e:
+            print(f"Failed to start virtual display: {e}")
+            return False
+    
+    return True
 
 # Add the project root to Python path to import existing modules
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -130,8 +177,13 @@ class DjangoTrimeshViewer:
         return [r, g, b, 255]
     
     def save_image(self, file_path, resolution=(1920, 1080)):
-        """Save the scene as an image"""
+        """Save the scene as an image with headless rendering support"""
         try:
+            # Ensure virtual display is running for headless environments
+            if not ensure_virtual_display():
+                print("Failed to ensure virtual display")
+                return self._fallback_save_image(file_path, resolution)
+            
             # Set up camera for good viewing angle
             self.scene.camera.resolution = resolution
             
@@ -161,6 +213,78 @@ class DjangoTrimeshViewer:
             
         except Exception as e:
             print(f"Error saving trimesh image: {e}")
+            traceback.print_exc()
+            # Try fallback method
+            return self._fallback_save_image(file_path, resolution)
+    
+    def _fallback_save_image(self, file_path, resolution=(1920, 1080)):
+        """Fallback method using matplotlib for basic visualization"""
+        try:
+            print("Attempting fallback image generation using matplotlib...")
+            
+            # Create a simple 3D plot using matplotlib
+            fig = plt.figure(figsize=(resolution[0]/100, resolution[1]/100), dpi=100)
+            ax = fig.add_subplot(111, projection='3d')
+            
+            # Draw container outline
+            bx, by, bz = self.pallet_size
+            
+            # Draw container wireframe
+            vertices = np.array([
+                [0, 0, 0], [bx, 0, 0], [bx, by, 0], [0, by, 0],  # bottom
+                [0, 0, bz], [bx, 0, bz], [bx, by, bz], [0, by, bz]  # top
+            ])
+            
+            # Define edges for wireframe
+            edges = [
+                [0, 1], [1, 2], [2, 3], [3, 0],  # bottom
+                [4, 5], [5, 6], [6, 7], [7, 4],  # top
+                [0, 4], [1, 5], [2, 6], [3, 7]   # vertical
+            ]
+            
+            for edge in edges:
+                points = vertices[edge]
+                ax.plot3D(*points.T, 'k-', alpha=0.6)
+            
+            # Draw boxes
+            for i, box in enumerate(self.packed_boxes):
+                if box.is_packed and box.position_x is not None:
+                    x, y, z = float(box.position_x), float(box.position_y), float(box.position_z)
+                    dx, dy, dz = float(box.x), float(box.y), float(box.z)
+                    
+                    # Create box vertices
+                    box_vertices = np.array([
+                        [x, y, z], [x+dx, y, z], [x+dx, y+dy, z], [x, y+dy, z],
+                        [x, y, z+dz], [x+dx, y, z+dz], [x+dx, y+dy, z+dz], [x, y+dy, z+dz]
+                    ])
+                    
+                    # Draw box edges
+                    color = plt.cm.tab10(i % 10)
+                    for edge in edges:
+                        points = box_vertices[edge]
+                        ax.plot3D(*points.T, color=color, linewidth=2)
+            
+            # Set equal aspect ratio and labels
+            ax.set_xlabel('X')
+            ax.set_ylabel('Y')
+            ax.set_zlabel('Z')
+            ax.set_title('Pallet Packing Visualization (Fallback)')
+            
+            # Set limits
+            ax.set_xlim([0, bx])
+            ax.set_ylim([0, by])
+            ax.set_zlim([0, bz])
+            
+            # Save the figure
+            plt.tight_layout()
+            plt.savefig(file_path, dpi=100, bbox_inches='tight')
+            plt.close(fig)
+            
+            print(f"Fallback image saved successfully: {file_path}")
+            return True
+            
+        except Exception as e:
+            print(f"Error in fallback image generation: {e}")
             traceback.print_exc()
             return False
     
@@ -318,8 +442,13 @@ class VideoGenerator:
         return viewer
     
     def _render_frame(self, viewer, resolution) -> Optional[np.ndarray]:
-        """Render a single frame from the viewer"""
+        """Render a single frame from the viewer with headless support"""
         try:
+            # Ensure virtual display is running
+            if not ensure_virtual_display():
+                print("Failed to ensure virtual display for frame rendering")
+                return None
+            
             # Set up camera for good viewing angle
             viewer.scene.camera.resolution = resolution
             
@@ -438,8 +567,13 @@ class VideoGenerator:
             return False
     
     def generate_trimesh_visualization(self) -> Optional[str]:
-        """Generate a high-quality 3D visualization using trimesh (fallback to PNG)"""
+        """Generate a high-quality 3D visualization using trimesh with headless support"""
         try:
+            # Ensure virtual display is available
+            if not ensure_virtual_display():
+                print("Virtual display not available, using fallback method")
+                return self._generate_fallback_visualization()
+            
             temp_dir = tempfile.mkdtemp()
             image_path = os.path.join(temp_dir, f'packing_visualization_{self.session.id}.png')
             
@@ -448,21 +582,22 @@ class VideoGenerator:
 
             bounds = viewer.scene.bounds
             if bounds is None:
-                return
-            
+                print("No bounds available, using fallback")
+                return self._generate_fallback_visualization()
+
             center = bounds.mean(axis=0)
             size = bounds.ptp(axis=0).max()
-            
+
             # Position camera at an angle for good 3D view
             camera_distance = size * 1.5
             camera_pos = center + np.array([0, -camera_distance*0.3, camera_distance * 0.5])
             print(camera_pos)
             rotation_matrix = trimesh.transformations.rotation_matrix(
-                angle=np.radians(45),  # Rotate 30 degrees around Z-axis
-                direction=[1, 0, 0],  # Rotate around Z-axis
+                angle=np.radians(45),  # Rotate 45 degrees around X-axis
+                direction=[1, 0, 0],  # Rotate around X-axis
                 point=center
             )
-            
+
             T = viewer.scene.camera.look_at(
                 points=[center],
                 rotation=rotation_matrix,
@@ -471,19 +606,39 @@ class VideoGenerator:
             )
 
             viewer.scene.camera_transform = T
-            
+
             # Save lower resolution image for faster processing
             success = viewer.save_image(image_path, resolution=(800, 600))
+
+            if success and os.path.exists(image_path):
+                return image_path
+            else:
+                print("Failed to generate trimesh visualization, trying fallback")
+                return self._generate_fallback_visualization()
+
+        except Exception as e:
+            print(f"Error generating trimesh visualization: {e}")
+            traceback.print_exc()
+            return self._generate_fallback_visualization()
+    
+    def _generate_fallback_visualization(self) -> Optional[str]:
+        """Generate a matplotlib-based fallback visualization"""
+        try:
+            temp_dir = tempfile.mkdtemp()
+            image_path = os.path.join(temp_dir, f'packing_fallback_{self.session.id}.png')
+            
+            # Create fallback visualization using matplotlib
+            viewer = DjangoTrimeshViewer(self.session)
+            success = viewer._fallback_save_image(image_path, resolution=(800, 600))
             
             if success and os.path.exists(image_path):
                 return image_path
             else:
-                print("Failed to generate trimesh visualization")
+                print("Failed to generate fallback visualization")
                 return None
                 
         except Exception as e:
-            print(f"Error generating trimesh visualization: {e}")
-            traceback.print_exc()
+            print(f"Error generating fallback visualization: {e}")
             return None
     
     def generate_3d_export(self) -> Optional[str]:
