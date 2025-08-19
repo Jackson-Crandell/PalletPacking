@@ -1,0 +1,223 @@
+{% extends 'packing/base.html' %}
+
+{% block title %}Pallet Packing Simulator - Home{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="text-center mb-5">
+            <h1 class="display-4">Pallet Packing Simulator</h1>
+            <p class="lead">Configure your packing requirements and watch the simulation in action</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title mb-0">Packing Configuration</h3>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <!-- Pallet Dimensions -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h5 class="text-primary">Pallet Dimensions</h5>
+                            <hr>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="{{ form.pallet_width.id_for_label }}" class="form-label">
+                                {{ form.pallet_width.label }}
+                            </label>
+                            {{ form.pallet_width }}
+                            {% if form.pallet_width.help_text %}
+                                <div class="form-text">{{ form.pallet_width.help_text }}</div>
+                            {% endif %}
+                            {% if form.pallet_width.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.pallet_width.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4">
+                            <label for="{{ form.pallet_length.id_for_label }}" class="form-label">
+                                {{ form.pallet_length.label }}
+                            </label>
+                            {{ form.pallet_length }}
+                            {% if form.pallet_length.help_text %}
+                                <div class="form-text">{{ form.pallet_length.help_text }}</div>
+                            {% endif %}
+                            {% if form.pallet_length.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.pallet_length.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4">
+                            <label for="{{ form.pallet_height.id_for_label }}" class="form-label">
+                                {{ form.pallet_height.label }}
+                            </label>
+                            {{ form.pallet_height }}
+                            {% if form.pallet_height.help_text %}
+                                <div class="form-text">{{ form.pallet_height.help_text }}</div>
+                            {% endif %}
+                            {% if form.pallet_height.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.pallet_height.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Algorithm Settings -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h5 class="text-primary">Algorithm Settings</h5>
+                            <hr>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="{{ form.rotation_setting.id_for_label }}" class="form-label">
+                                {{ form.rotation_setting.label }}
+                            </label>
+                            {{ form.rotation_setting }}
+                            {% if form.rotation_setting.help_text %}
+                                <div class="form-text">{{ form.rotation_setting.help_text }}</div>
+                            {% endif %}
+                            {% if form.rotation_setting.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.rotation_setting.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="{{ form.algorithm.id_for_label }}" class="form-label">
+                                {{ form.algorithm.label }}
+                            </label>
+                            {{ form.algorithm }}
+                            {% if form.algorithm.help_text %}
+                                <div class="form-text">{{ form.algorithm.help_text }}</div>
+                            {% endif %}
+                            {% if form.algorithm.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.algorithm.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Box Data -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h5 class="text-primary">Box Data</h5>
+                            <hr>
+                        </div>
+                        <div class="col-12">
+                            <label for="{{ form.csv_file.id_for_label }}" class="form-label">
+                                {{ form.csv_file.label }}
+                            </label>
+                            {{ form.csv_file }}
+                            {% if form.csv_file.help_text %}
+                                <div class="form-text">{{ form.csv_file.help_text }}</div>
+                            {% endif %}
+                            {% if form.csv_file.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.csv_file.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            
+                            <div class="alert alert-info mt-3">
+                                <h6>CSV File Format</h6>
+                                <p class="mb-2">Your CSV file should have the following columns:</p>
+                                <ul class="mb-2">
+                                    <li><strong>x</strong> - Box width</li>
+                                    <li><strong>y</strong> - Box length</li>
+                                    <li><strong>z</strong> - Box height</li>
+                                </ul>
+                                <p class="mb-0">
+                                    <small>
+                                        If no file is uploaded, a default set of boxes will be used for demonstration.
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#csvExampleModal">View example</a>
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Errors -->
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {% for error in form.non_field_errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <!-- Submit Button -->
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            Start Packing Simulation
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Recent Sessions -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Recent Sessions</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">
+                    <a href="{% url 'packing:session_list' %}" class="btn btn-outline-primary">
+                        View All Sessions
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CSV Example Modal -->
+<div class="modal fade" id="csvExampleModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">CSV File Example</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Here's an example of the CSV format:</p>
+                <pre class="bg-light p-3 rounded">x,y,z
+1.0,2.0,1.5
+2.5,1.0,3.0
+1.5,1.5,2.0
+3.0,2.0,1.0</pre>
+                <p class="mt-3">
+                    <strong>Requirements:</strong>
+                </p>
+                <ul>
+                    <li>First row must contain headers: x, y, z</li>
+                    <li>All dimensions must be positive numbers</li>
+                    <li>Maximum 1000 boxes per file</li>
+                    <li>File size limit: 5MB</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

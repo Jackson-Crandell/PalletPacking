@@ -1,0 +1,106 @@
+{% extends 'packing/base.html' %}
+
+{% block title %}Delete Session {{ session.id }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-6 mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-4">
+            <h1 class="display-5">Delete Session</h1>
+            <p class="lead">Are you sure you want to delete this packing session?</p>
+        </div>
+
+        <!-- Session Info -->
+        <div class="card mb-4">
+            <div class="card-header bg-danger text-white">
+                <h5 class="card-title mb-0">Session #{{ session.id }}</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <strong>Pallet Size:</strong><br>
+                        {{ session.pallet_width }}×{{ session.pallet_length }}×{{ session.pallet_height }}
+                    </div>
+                    <div class="col-6">
+                        <strong>Algorithm:</strong><br>
+                        {{ session.get_algorithm_display }}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-6">
+                        <strong>Total Boxes:</strong><br>
+                        {{ session.boxes.count }}
+                    </div>
+                    <div class="col-6">
+                        <strong>Status:</strong><br>
+                        {% if session.is_completed %}
+                            <span class="badge bg-success">Complete</span>
+                        {% else %}
+                            <span class="badge bg-warning">Running</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-6">
+                        <strong>Created:</strong><br>
+                        {{ session.created_at|date:"M d, Y H:i" }}
+                    </div>
+                    <div class="col-6">
+                        <strong>Utilization:</strong><br>
+                        {% if session.utilization_rate %}
+                            {{ session.utilization_rate|floatformat:1 }}%
+                        {% else %}
+                            Not available
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Warning -->
+        <div class="alert alert-danger">
+            <h6>Warning</h6>
+            <p class="mb-2">This action cannot be undone. Deleting this session will permanently remove:</p>
+            <ul class="mb-0">
+                <li>All session configuration data</li>
+                <li>Box data and packing results</li>
+                <li>Generated simulation video (if any)</li>
+                <li>Uploaded CSV files</li>
+            </ul>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="row">
+            <div class="col-6">
+                <a href="{% url 'packing:session_list' %}" class="btn btn-secondary btn-lg w-100">
+                    ← Cancel
+                </a>
+            </div>
+            <div class="col-6">
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-lg w-100">
+                        🗑️ Delete Session
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Alternative Actions -->
+        <div class="text-center mt-4">
+            {% if session.is_completed %}
+                <a href="{% url 'packing:results' session.id %}" class="btn btn-outline-primary">
+                    👁️ View Results Instead
+                </a>
+            {% else %}
+                <a href="{% url 'packing:progress' session.id %}" class="btn btn-outline-warning">
+                    ⏳ Check Progress Instead
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

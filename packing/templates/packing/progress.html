@@ -1,0 +1,203 @@
+{% extends 'packing/base.html' %}
+
+{% block title %}Packing Progress - Session {{ session.id }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-4">
+            <h1 class="display-5">Packing in Progress</h1>
+            <p class="lead">Your packing simulation is running...</p>
+        </div>
+
+        <!-- Progress Card -->
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                <div class="mb-4">
+                    <div class="loading-spinner mx-auto" style="width: 60px; height: 60px; border-width: 6px;"></div>
+                </div>
+                
+                <h4 id="status-text">Initializing simulation...</h4>
+                <p class="text-muted" id="status-detail">Please wait while we process your packing request.</p>
+                
+                <!-- Progress Bar -->
+                <div class="progress mb-3" style="height: 20px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                         role="progressbar" 
+                         style="width: 0%" 
+                         id="progress-bar">
+                        <span id="progress-text">0%</span>
+                    </div>
+                </div>
+                
+                <!-- Statistics -->
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        <div class="border rounded p-3">
+                            <h5 class="text-primary mb-1" id="packed-count">-</h5>
+                            <small class="text-muted">Boxes Packed</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="border rounded p-3">
+                            <h5 class="text-success mb-1" id="utilization-rate">-</h5>
+                            <small class="text-muted">Utilization Rate</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="border rounded p-3">
+                            <h5 class="text-info mb-1">{{ session.boxes.count }}</h5>
+                            <small class="text-muted">Total Boxes</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session Info -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">📋 Session Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Session ID:</strong> {{ session.id }}<br>
+                        <strong>Pallet Size:</strong> {{ session.pallet_width }}×{{ session.pallet_length }}×{{ session.pallet_height }}<br>
+                        <strong>Algorithm:</strong> {{ session.get_algorithm_display }}<br>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Rotation:</strong> {{ session.get_rotation_setting_display }}<br>
+                        <strong>Total Boxes:</strong> {{ session.boxes.count }}<br>
+                        <strong>Started:</strong> {{ session.created_at|date:"M d, Y H:i" }}<br>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- What's Happening -->
+        <div class="alert alert-info mt-4">
+            <h6>🔄 What's happening now?</h6>
+            <ol class="mb-0">
+                <li>Loading your box data and pallet configuration</li>
+                <li>Running the {{ session.get_algorithm_display|lower }} packing algorithm</li>
+                <li>Calculating optimal box placements</li>
+                <li>Generating 3D visualization video</li>
+                <li>Preparing results for display</li>
+            </ol>
+        </div>
+
+        <!-- Manual Refresh Button -->
+        <div class="text-center mt-4">
+            <button class="btn btn-outline-primary" onclick="checkProgress()">
+                🔄 Check Progress
+            </button>
+            <a href="{% url 'packing:session_list' %}" class="btn btn-outline-secondary">
+                📊 View All Sessions
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+var progressInterval;
+var sessionId = parseInt('{{ session.id }}');
+var totalBoxes = parseInt('{{ session.boxes.count }}');
+
+var progressData = {
+    is_completed: false,
+    utilization_rate: null,
+    packed_boxes_count: null,
+    total_boxes: totalBoxes
+};
+
+function checkProgress() {
+    $.ajax({
+        url: '{% url "packing:progress_api" session.id %}',
+        method: 'GET',
+        success: function(data) {
+            progressData = data;
+            updateProgressDisplay();
+            
+            if (data.is_completed) {
+                // Redirect to results page
+                setTimeout(function() {
+                    window.location.href = '{% url "packing:results" session.id %}';
+                }, 2000);
+            }
+        },
+        error: function() {
+            console.log('Error checking progress');
+        }
+    });
+}
+
+function updateProgressDisplay() {
+    var data = progressData;
+    
+    if (data.is_completed) {
+        $('#status-text').text('Packing Complete!');
+        $('#status-detail').text('Redirecting to results...');
+        $('.loading-spinner').hide();
+        
+        // Update progress bar to 100%
+        $('#progress-bar').css('width', '100%');
+        $('#progress-text').text('100%');
+        $('#progress-bar').removeClass('progress-bar-striped progress-bar-animated');
+        $('#progress-bar').addClass('bg-success');
+        
+        clearInterval(progressInterval);
+    } else {
+        // Calculate progress based on packed boxes
+        var progress = 0;
+        if (data.total_boxes > 0 && data.packed_boxes_count !== null) {
+            progress = Math.round((data.packed_boxes_count / data.total_boxes) * 80); // Max 80% until complete
+        }
+        
+        $('#progress-bar').css('width', progress + '%');
+        $('#progress-text').text(progress + '%');
+        
+        if (data.packed_boxes_count !== null) {
+            $('#status-text').text('Packing boxes...');
+            $('#status-detail').text('Processing box ' + data.packed_boxes_count + ' of ' + data.total_boxes);
+        }
+    }
+    
+    // Update statistics
+    if (data.packed_boxes_count !== null) {
+        $('#packed-count').text(data.packed_boxes_count);
+    }
+    
+    if (data.utilization_rate !== null) {
+        $('#utilization-rate').text((data.utilization_rate * 100).toFixed(1) + '%');
+    }
+}
+
+$(document).ready(function() {
+    // Start checking progress immediately
+    checkProgress();
+    
+    // Set up periodic progress checking
+    progressInterval = setInterval(checkProgress, 3000); // Check every 3 seconds
+    
+    // Stop checking after 10 minutes to prevent infinite polling
+    setTimeout(function() {
+        if (progressInterval) {
+            clearInterval(progressInterval);
+            $('#status-text').text('Simulation taking longer than expected');
+            $('#status-detail').text('Please check back later or contact support if the issue persists.');
+        }
+    }, 600000); // 10 minutes
+});
+
+// Clean up interval when leaving page
+$(window).on('beforeunload', function() {
+    if (progressInterval) {
+        clearInterval(progressInterval);
+    }
+});
+</script>
+{% endblock %}

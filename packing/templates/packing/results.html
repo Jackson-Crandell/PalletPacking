@@ -1,0 +1,191 @@
+{% extends 'packing/base.html' %}
+
+{% block title %}Packing Results - Session {{ session.id }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+
+        <!-- Results Summary -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card stats-card">
+                    <div class="card-body text-center">
+                        <div class="stats-number">{{ utilization_percentage|floatformat:1 }}%</div>
+                        <small>Space Utilization</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="stats-number text-success">{{ packed_boxes.count }}</div>
+                        <small>Boxes Packed</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="stats-number text-danger">{{ unpacked_boxes.count }}</div>
+                        <small>Boxes Unpacked</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="stats-number text-info">{{ packed_volume|floatformat:1 }}</div>
+                        <small>Volume Used</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visualization Section -->
+        {% if session.simulation_image %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">3D Packing Visualization</h5>
+            </div>
+            <div class="card-body">
+                <!-- Display static image -->
+                <div class="text-center">
+                    <img src="{{ session.simulation_image.url }}" class="img-fluid rounded" alt="Packing Visualization" style="max-height: 600px;">
+                </div>
+                
+                <!-- Download buttons -->
+                <div class="mt-3 text-center">
+                    <a href="{{ session.simulation_image.url }}" class="btn btn-outline-primary me-2" download>
+                        Download Image
+                    </a>
+                    {% if session.simulation_video %}
+                    <a href="{{ session.simulation_video.url }}" class="btn btn-outline-success" download>
+                        Download Animation Video
+                    </a>
+                    {% endif %}
+                </div>
+                
+            </div>
+        </div>
+        {% else %}
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                <h5>🎨 3D Visualization</h5>
+                <p class="text-muted">Visualization generation is still in progress or failed. Please refresh the page in a moment.</p>
+                <button class="btn btn-outline-primary" onclick="location.reload()">
+                    🔄 Refresh Page
+                </button>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Detailed Results -->
+        <div class="row">
+            <!-- Packed Boxes -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="card-title mb-0">Successfully Packed Boxes ({{ packed_boxes.count }})</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if packed_boxes %}
+                            <div class="box-list">
+                                {% for box in packed_boxes %}
+                                <div class="box-item packed">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <strong>Box {{ forloop.counter }}</strong><br>
+                                            <small>{{ box.x|floatformat:1 }}×{{ box.y|floatformat:1 }}×{{ box.z|floatformat:1 }}</small>
+                                        </div>
+                                        <div class="col-6">
+                                            <small>Position: ({{ box.position_x|floatformat:1 }}, {{ box.position_y|floatformat:1 }}, {{ box.position_z|floatformat:1 }})</small><br>
+                                            <small>Volume: {{ box.volume|floatformat:2 }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-muted">No boxes were successfully packed.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unpacked Boxes -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-danger text-white">
+                        <h5 class="card-title mb-0">Unpacked Boxes ({{ unpacked_boxes.count }})</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if unpacked_boxes %}
+                            <div class="box-list">
+                                {% for box in unpacked_boxes %}
+                                <div class="box-item unpacked">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <strong>Box {{ forloop.counter|add:packed_boxes.count }}</strong><br>
+                                            <small>{{ box.x|floatformat:1 }}×{{ box.y|floatformat:1 }}×{{ box.z|floatformat:1 }}</small>
+                                        </div>
+                                        <div class="col-6">
+                                            <small>Reason: Could not fit</small><br>
+                                            <small>Volume: {{ box.volume|floatformat:2 }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-success">All boxes were successfully packed!</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session Details -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Session Details</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Session ID:</strong> {{ session.id }}<br>
+                        <strong>Algorithm:</strong> {{ session.get_algorithm_display }}<br>
+                        <strong>Rotation Setting:</strong> {{ session.get_rotation_setting_display }}<br>
+                        <strong>Pallet Dimensions:</strong> {{ session.pallet_width }}×{{ session.pallet_length }}×{{ session.pallet_height }}<br>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Total Pallet Volume:</strong> {{ pallet_volume|floatformat:1 }} units³<br>
+                        <strong>Used Volume:</strong> {{ packed_volume|floatformat:1 }} units³<br>
+                        <strong>Completed:</strong> {{ session.updated_at|date:"M d, Y H:i" }}<br>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <a href="{% url 'packing:index' %}" class="btn btn-primary btn-lg w-100">
+                    New Simulation
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="{% url 'packing:session_list' %}" class="btn btn-outline-primary btn-lg w-100">
+                    View All Sessions
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="{% url 'packing:delete_session' session.id %}" class="btn btn-outline-danger btn-lg w-100">
+                    Delete Session
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

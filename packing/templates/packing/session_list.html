@@ -1,0 +1,179 @@
+{% extends 'packing/base.html' %}
+
+{% block title %}Packing Sessions{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="display-5">Packing Sessions</h1>
+                <p class="lead">View and manage your packing simulation sessions</p>
+            </div>
+            <div>
+                <a href="{% url 'packing:index' %}" class="btn btn-primary">
+                    New Simulation
+                </a>
+            </div>
+        </div>
+
+        {% if sessions %}
+            <!-- Sessions Table -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">All Sessions ({{ sessions.count }})</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Pallet Size</th>
+                                    <th>Algorithm</th>
+                                    <th>Boxes</th>
+                                    <th>Utilization</th>
+                                    <th>Status</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for session in sessions %}
+                                <tr>
+                                    <td>
+                                        <strong>#{{ session.id }}</strong>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-secondary">
+                                            {{ session.pallet_width|floatformat:0 }}×{{ session.pallet_length|floatformat:0 }}×{{ session.pallet_height|floatformat:0 }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {{ session.get_algorithm_display }}
+                                        <br>
+                                        <small class="text-muted">{{ session.get_rotation_setting_display }}</small>
+                                    </td>
+                                    <td>
+                                        <strong>{{ session.boxes.count }}</strong> boxes
+                                        <br>
+                                        <small class="text-muted">
+                                            {% if session.packed_boxes_count %}
+                                                {{ session.packed_boxes_count }} packed
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </small>
+                                    </td>
+                                    <td>
+                                        {% if session.utilization_rate %}
+                                            <span class="badge {% if session.utilization_rate > 0.8 %}bg-success{% elif session.utilization_rate > 0.6 %}bg-warning{% else %}bg-danger{% endif %}">
+                                                {{ session.utilization_rate|floatformat:1|default:"0.0" }}%
+                                            </span>
+                                        {% else %}
+                                            <span class="text-muted">-</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if session.is_completed %}
+                                            <span class="badge bg-success">Complete</span>
+                                        {% else %}
+                                            <span class="badge bg-warning">Running</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {{ session.created_at|date:"M d, Y" }}
+                                        <br>
+                                        <small class="text-muted">{{ session.created_at|time:"H:i" }}</small>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            {% if session.is_completed %}
+                                                <a href="{% url 'packing:results' session.id %}" class="btn btn-outline-primary" title="View Results">
+                                                    👁️
+                                                </a>
+                                            {% else %}
+                                                <a href="{% url 'packing:progress' session.id %}" class="btn btn-outline-warning" title="View Progress">
+                                                    ⏳
+                                                </a>
+                                            {% endif %}
+                                            <a href="{% url 'packing:delete_session' session.id %}" class="btn btn-outline-danger" title="Delete">
+                                                🗑️
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Statistics -->
+            <div class="row mt-4">
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h4 class="text-primary">{{ sessions.count }}</h4>
+                            <small>Total Sessions</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h4 class="text-success">
+                                {% with completed_sessions=sessions|dictsort:"is_completed" %}
+                                    {{ completed_sessions|length }}
+                                {% endwith %}
+                            </h4>
+                            <small>Completed</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h4 class="text-warning">
+
+                            </h4>
+                            <small>Running</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h4 class="text-info">
+                                {% with total_boxes=0 %}
+                                    {% for session in sessions %}
+                                        {% with total_boxes=total_boxes|add:session.boxes.count %}
+                                        {% endwith %}
+                                    {% endfor %}
+                                    {{ total_boxes }}
+                                {% endwith %}
+                            </h4>
+                            <small>Total Boxes</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% else %}
+            <!-- Empty State -->
+            <div class="card">
+                <div class="card-body text-center py-5">
+                    <h3>No Packing Sessions Yet</h3>
+                    <p class="text-muted mb-4">You haven't created any packing simulations yet. Get started by creating your first simulation!</p>
+                    <a href="{% url 'packing:index' %}" class="btn btn-primary btn-lg">
+                        Create First Simulation
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

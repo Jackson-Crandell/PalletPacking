@@ -1,0 +1,181 @@
+{% extends 'packing/base.html' %}
+
+{% block title %}Configure Packing - Session {{ session.id }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-4">
+            <h1 class="display-5">Packing Configuration</h1>
+            <p class="lead">Review your settings and box data before starting the simulation</p>
+        </div>
+
+        <!-- Configuration Summary -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card stats-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Pallet Specifications</h5>
+                        <div class="row">
+                            <div class="col-4 text-center">
+                                <div class="stats-number">{{ session.pallet_width }}</div>
+                                <small>Width</small>
+                            </div>
+                            <div class="col-4 text-center">
+                                <div class="stats-number">{{ session.pallet_length }}</div>
+                                <small>Length</small>
+                            </div>
+                            <div class="col-4 text-center">
+                                <div class="stats-number">{{ session.pallet_height }}</div>
+                                <small>Height</small>
+                            </div>
+                        </div>
+                        <hr class="my-3" style="border-color: rgba(255,255,255,0.3);">
+                        <div class="row">
+                            <div class="col-6">
+                                <strong>Volume:</strong> {{ pallet_volume|floatformat:1 }} units³
+                            </div>
+                            <div class="col-6">
+                                <strong>Algorithm:</strong> {{ session.get_algorithm_display }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Box Statistics</h5>
+                        <div class="row">
+                            <div class="col-6 text-center">
+                                <div class="stats-number text-primary">{{ total_boxes }}</div>
+                                <small>Total Boxes</small>
+                            </div>
+                            <div class="col-6 text-center">
+                                <div class="stats-number text-success">{{ total_volume|floatformat:1 }}</div>
+                                <small>Total Volume</small>
+                            </div>
+                        </div>
+                        <hr class="my-3">
+                        <div class="row">
+                            <div class="col-6">
+                                <strong>Rotation:</strong> {{ session.get_rotation_setting_display }}
+                            </div>
+                            <div class="col-6">
+                                <strong>Theoretical Fill:</strong> 
+                                {% widthratio total_volume pallet_volume 100 %}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Box Data Table -->
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Box Data</h5>
+                <span class="badge bg-primary">{{ total_boxes }} boxes</span>
+            </div>
+            <div class="card-body">
+                {% if boxes %}
+                    <div class="box-list">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Width (X)</th>
+                                        <th>Length (Y)</th>
+                                        <th>Height (Z)</th>
+                                        <th>Volume</th>
+                                        <th>Dimensions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for box in boxes %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ box.x|floatformat:2 }}</td>
+                                        <td>{{ box.y|floatformat:2 }}</td>
+                                        <td>{{ box.z|floatformat:2 }}</td>
+                                        <td>{{ box.volume|floatformat:2 }}</td>
+                                        <td>
+                                            <span class="badge bg-secondary">
+                                                {{ box.x|floatformat:1 }}×{{ box.y|floatformat:1 }}×{{ box.z|floatformat:1 }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <p class="text-muted">No boxes loaded. Please go back and upload a CSV file or use default boxes.</p>
+                        <a href="{% url 'packing:index' %}" class="btn btn-outline-primary">Go Back</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="row">
+            <div class="col-md-6">
+                <a href="{% url 'packing:index' %}" class="btn btn-outline-secondary btn-lg w-100">
+                    ← Back to Configuration
+                </a>
+            </div>
+            <div class="col-md-6">
+                {% if boxes %}
+                    <form method="post" action="{% url 'packing:start_packing' session.id %}" id="packingForm">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success btn-lg w-100" id="startPackingBtn">
+                            Start Packing Simulation
+                        </button>
+                    </form>
+                {% else %}
+                    <button type="button" class="btn btn-secondary btn-lg w-100" disabled>
+                        No Boxes to Pack
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Warnings and Tips -->
+        {% if total_volume > pallet_volume %}
+        <div class="alert alert-warning mt-4">
+            <h6>Volume Warning</h6>
+            <p class="mb-0">
+                The total volume of boxes ({{ total_volume|floatformat:1 }}) exceeds the pallet volume ({{ pallet_volume|floatformat:1 }}). 
+                Some boxes may not fit even with optimal packing.
+            </p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    $('#packingForm').on('submit', function(e) {
+        console.log('Form submitted!');
+        console.log('Action URL:', $(this).attr('action'));
+        
+        $('#startPackingBtn').prop('disabled', true);
+        $('#startPackingBtn').html('<span class="loading-spinner"></span> Starting Simulation...');
+        
+        // Let the form submit normally
+        return true;
+    });
+    
+    $('#startPackingBtn').click(function(e) {
+        console.log('Button clicked!');
+    });
+});
+</script>
+{% endblock %}
