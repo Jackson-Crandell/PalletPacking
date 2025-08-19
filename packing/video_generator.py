@@ -191,7 +191,7 @@ class DjangoTrimeshViewer:
             bounds = self.scene.bounds
             if bounds is not None:
                 center = bounds.mean(axis=0)
-                size = bounds.ptp(axis=0).max()
+                size = np.ptp(bounds,axis=0).max()
                 
                 # Position camera at an angle for good 3D view
                 camera_distance = size * 2.5
@@ -456,7 +456,7 @@ class VideoGenerator:
             bounds = viewer.scene.bounds
             if bounds is not None:
                 center = bounds.mean(axis=0)
-                size = bounds.ptp(axis=0).max()
+                size = np.ptp(bounds,axis=0).max()
                 
                 # Position camera at an angle for good 3D view
                 camera_distance = size * 2.5
@@ -586,7 +586,7 @@ class VideoGenerator:
                 return self._generate_fallback_visualization()
 
             center = bounds.mean(axis=0)
-            size = bounds.ptp(axis=0).max()
+            size = np.ptp(bounds,axis=0).max()
 
             # Position camera at an angle for good 3D view
             camera_distance = size * 1.5
