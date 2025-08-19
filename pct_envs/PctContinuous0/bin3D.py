@@ -1,7 +1,7 @@
 from .space import Space
 import numpy as np
 import gym
-from .binCreator import RandomBoxCreator, LoadBoxCreator, BoxCreator
+from .binCreator import RandomBoxCreator, LoadBoxCreator, BoxCreator, FixedBoxCreator
 #import torch
 import random
 
@@ -35,15 +35,19 @@ class PackingContinuous(gym.Env):
         # The class that maintains the contents of the bin.
         self.space = Space(*self.bin_size, self.size_minimum, self.internal_node_holder)
 
+        if item_set is not None and not load_test_data:
+            # Use fixed box creator if item_set is provided
+            self.box_creator = FixedBoxCreator(item_set)
+
         # Generator for train/test data
-        if not load_test_data:
+        elif not load_test_data:
             assert item_set is not None
             self.box_creator = RandomBoxCreator(item_set)
             assert isinstance(self.box_creator, BoxCreator)
 
         self.sample_from_distribution = sample_from_distribution
-        if load_test_data:
-            self.box_creator = LoadBoxCreator(data_name)
+        # if load_test_data:
+        #     self.box_creator = LoadBoxCreator(data_name)
 
         self.test = load_test_data
         self.observation_space = gym.spaces.Box(low=0.0, high=self.space.height,

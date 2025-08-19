@@ -377,7 +377,7 @@ class Space(object):
 
     # Virtually place an item into the bin,
     # this function is used to check whether the placement is feasible for the current item
-    def drop_box_virtual(self, box_size, idx, flag, density, setting, returnH = False, **kwargs):
+    def drop_box_virtual(self, box_size, idx, flag, density, setting, returnH = True, **kwargs):
         if not flag:
             x, y, z = box_size
         else:

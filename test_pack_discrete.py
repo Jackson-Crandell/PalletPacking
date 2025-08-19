@@ -285,7 +285,7 @@ if __name__ == '__main__':
 
     rotation = True
     setting = None
-    max_packing_height = 5
+    max_packing_height = 10
 
     pallet_size = [10,10,max_packing_height]
     num_episodes = 1

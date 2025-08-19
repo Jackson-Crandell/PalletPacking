@@ -38,6 +38,32 @@ class RandomBoxCreator(BoxCreator):
         idx = np.random.randint(0, len(self.box_set))
         self.box_list.append(self.box_set[idx])
 
+class FixedBoxCreator(BoxCreator):
+    def __init__(self, box_size_set=None):
+        super().__init__()
+        self.box_set = box_size_set
+        self.index = 0
+        self.box_index = 0
+        if self.box_set is None:
+            self.box_set = [(2, 2, 2), (3, 3, 3), (4, 4, 4)]
+
+    def set_box_set(self, box_set):
+        self.box_list.clear()
+
+        self.index = 0
+        self.boxes = self.box_set
+        self.boxes = self.boxes.tolist()
+        self.box_index = 0
+        self.box_set = self.boxes
+        self.box_set.append([100, 100, 100])
+
+    def generate_box_size(self, **kwargs):
+        if self.box_index < len(self.box_set):
+            self.box_list.append(self.box_set[self.box_index])
+            self.box_index += 1
+        else:
+            self.box_list.append((10, 10, 10))
+            self.box_index += 1
 class LoadBoxCreator(BoxCreator):
     def __init__(self, data_name=None):
         super().__init__()

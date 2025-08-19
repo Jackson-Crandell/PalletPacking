@@ -187,11 +187,12 @@ def corner_height(env, times = 2000):
                 #print(bestScore)
                 # Place this item in the environment with the best action.
                 env.step(bestAction)
-                viewer.show(block=False)
+                #viewer.show(block=False)
                 #time.sleep(0.5)
                 done = False
             else:
                 # No feasible placement, this episode is done.
+                viewer.show(block=False)
                 done = True
 
     return  np.mean(episode_utilization), np.var(episode_utilization), np.mean(episode_length)
@@ -257,7 +258,7 @@ def corner_height_z(env, times = 2000):
 
 if __name__ == '__main__':
 
-    pallet_size = [10,10,10]
+    pallet_size = [5.5,5.5,10]
     num_episodes = 1
     item_set = givenData.item_size_set
 
