@@ -1,0 +1,277 @@
+{
+  "geometries": [
+    {
+      "uuid": "container_geometry",
+      "type": "EdgesGeometry",
+      "data": {
+        "vertices": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            10.0,
+            0,
+            0
+          ],
+          [
+            10.0,
+            10.0,
+            0
+          ],
+          [
+            0,
+            10.0,
+            0
+          ],
+          [
+            0,
+            0,
+            10.0
+          ],
+          [
+            10.0,
+            0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            0,
+            10.0,
+            10.0
+          ]
+        ],
+        "edges": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            4
+          ],
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            3,
+            7
+          ]
+        ]
+      }
+    },
+    {
+      "uuid": "box_geometry_0",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 2.0,
+        "depth": 2.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_1",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 2.0,
+        "depth": 2.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_2",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 3.0,
+        "depth": 1.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    }
+  ],
+  "materials": [
+    {
+      "uuid": "container_material",
+      "type": "LineBasicMaterial",
+      "color": 6710886,
+      "linewidth": 2
+    },
+    {
+      "uuid": "box_material_0",
+      "type": "MeshPhongMaterial",
+      "color": 7057791,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_1",
+      "type": "MeshPhongMaterial",
+      "color": 12277916,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_2",
+      "type": "MeshPhongMaterial",
+      "color": 14333026,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    }
+  ],
+  "objects": [
+    {
+      "uuid": "container_object",
+      "type": "LineSegments",
+      "name": "Container",
+      "geometry": "container_geometry",
+      "material": "container_material",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_0",
+      "type": "Mesh",
+      "name": "Box 1",
+      "geometry": "box_geometry_0",
+      "material": "box_material_0",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1.0,
+        1.0,
+        1.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_1",
+      "type": "Mesh",
+      "name": "Box 2",
+      "geometry": "box_geometry_1",
+      "material": "box_material_1",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1.0,
+        1.0,
+        3.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_2",
+      "type": "Mesh",
+      "name": "Box 3",
+      "geometry": "box_geometry_2",
+      "material": "box_material_2",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.5,
+        0.5,
+        5.5,
+        1
+      ]
+    }
+  ],
+  "metadata": {
+    "type": "Object",
+    "version": 4.5,
+    "generator": "PalletPacking WebSceneExporter"
+  }
+}

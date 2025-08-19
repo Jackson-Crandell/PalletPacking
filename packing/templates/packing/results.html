@@ -43,42 +43,60 @@
         </div>
 
         <!-- Visualization Section -->
-        {% if session.simulation_image %}
         <div class="card mb-4">
-            <div class="card-header">
-                <h5 class="card-title mb-0">3D Packing Visualization</h5>
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Interactive 3D Packing Visualization</h5>
+               
             </div>
             <div class="card-body">
-                <!-- Display static image -->
+                {% if scene_data_json %}
+                <!-- Interactive 3D Viewer -->
+                <div id="threejs-container" style="width: 100%; height: 600px; border: 1px solid #ddd; border-radius: 0.375rem; background-color: #f8f9fa;">
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="text-center">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading 3D viewer...</span>
+                            </div>
+                            <p class="mt-2 text-muted">Loading interactive 3D viewer...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                {% elif session.simulation_image %}
+                <!-- Fallback to static image -->
                 <div class="text-center">
                     <img src="{{ session.simulation_image.url }}" class="img-fluid rounded" alt="Packing Visualization" style="max-height: 600px;">
                 </div>
+                <div class="mt-2">
+                    <small class="text-warning">⚠️ Interactive 3D viewer unavailable. Showing static image.</small>
+                </div>
+                {% else %}
+                <!-- No visualization available -->
+                <div class="text-center">
+                    <h5>🎨 3D Visualization</h5>
+                    <p class="text-muted">Visualization generation is still in progress or failed. Please refresh the page in a moment.</p>
+                    <button class="btn btn-outline-primary" onclick="location.reload()">
+                        🔄 Refresh Page
+                    </button>
+                </div>
+                {% endif %}
                 
                 <!-- Download buttons -->
                 <div class="mt-3 text-center">
+                    {% if session.simulation_image %}
                     <a href="{{ session.simulation_image.url }}" class="btn btn-outline-primary me-2" download>
                         Download Image
                     </a>
+                    {% endif %}
                     {% if session.simulation_video %}
-                    <a href="{{ session.simulation_video.url }}" class="btn btn-outline-success" download>
-                        Download Animation Video
+                    <a href="{{ session.simulation_video.url }}" class="btn btn-outline-success me-2" download>
+                        Download Packing Animation
                     </a>
                     {% endif %}
                 </div>
                 
             </div>
         </div>
-        {% else %}
-        <div class="card mb-4">
-            <div class="card-body text-center">
-                <h5>🎨 3D Visualization</h5>
-                <p class="text-muted">Visualization generation is still in progress or failed. Please refresh the page in a moment.</p>
-                <button class="btn btn-outline-primary" onclick="location.reload()">
-                    🔄 Refresh Page
-                </button>
-            </div>
-        </div>
-        {% endif %}
 
         <!-- Detailed Results -->
         <div class="row">
@@ -188,4 +206,293 @@
 
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+{% if scene_data_json %}
+{% load static %}
+<!-- Three.js from a more reliable CDN -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.142.0/build/three.min.js"></script>
+<script>
+// Load OrbitControls as ES module style after Three.js is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if Three.js loaded
+    if (typeof THREE === 'undefined') {
+        console.error('Three.js failed to load');
+        showViewerError();
+        return;
+    }
+    
+    // Add OrbitControls to THREE namespace manually
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/three@0.142.0/examples/js/controls/OrbitControls.js';
+    script.onload = function() {
+        // Initialize viewer after OrbitControls loads
+        initializeViewer();
+    };
+    script.onerror = function() {
+        console.warn('OrbitControls failed to load, using basic viewer');
+        initializeViewer();
+    };
+    document.head.appendChild(script);
+});
+
+// Scene data from Django
+const sceneDataStr = `{{ scene_data_json|escapejs }}`;
+let viewer3D = null;
+
+function initializeViewer() {
+    try {
+        // Simple viewer initialization without external script dependency
+        viewer3D = createSimple3DViewer('threejs-container', sceneDataStr);
+        if (!viewer3D) {
+            showViewerError();
+        }
+    } catch (error) {
+        console.error('Failed to initialize 3D viewer:', error);
+        showViewerError();
+    }
+}
+
+function createSimple3DViewer(containerId, sceneDataJson) {
+    try {
+        const container = document.getElementById(containerId);
+        const sceneData = JSON.parse(sceneDataJson);
+        
+        // Create scene
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xf8f9fa);
+        
+        // Create camera
+        const containerRect = container.getBoundingClientRect();
+        const aspect = containerRect.width / containerRect.height;
+        const camera = new THREE.PerspectiveCamera(50, aspect, 0.1, 10000);
+        
+        // Create renderer
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(containerRect.width, containerRect.height);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.innerHTML = ''; // Clear loading message
+        container.appendChild(renderer.domElement);
+        
+        // Add lights
+        const ambientLight = new THREE.AmbientLight(0x404040, 0.6);
+        scene.add(ambientLight);
+        
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(50, 50, 50);
+        scene.add(directionalLight);
+        
+        // Create materials map
+        const materials = {};
+        sceneData.materials.forEach(materialData => {
+            if (materialData.type === 'MeshPhongMaterial') {
+                materials[materialData.uuid] = new THREE.MeshPhongMaterial({
+                    color: materialData.color,
+                    transparent: materialData.transparent || false,
+                    opacity: materialData.opacity || 1.0
+                });
+            } else if (materialData.type === 'LineBasicMaterial') {
+                materials[materialData.uuid] = new THREE.LineBasicMaterial({
+                    color: materialData.color
+                });
+            }
+        });
+        
+        // Create geometries and objects
+        sceneData.objects.forEach(objectData => {
+            let geometry, object;
+            
+            if (objectData.type === 'Mesh') {
+                const geomData = sceneData.geometries.find(g => g.uuid === objectData.geometry);
+                if (geomData && geomData.type === 'BoxGeometry') {
+                    const data = geomData.data;
+                    geometry = new THREE.BoxGeometry(data.width, data.height, data.depth);
+                    object = new THREE.Mesh(geometry, materials[objectData.material]);
+                }
+            } else if (objectData.type === 'LineSegments') {
+                const geomData = sceneData.geometries.find(g => g.uuid === objectData.geometry);
+                if (geomData && geomData.type === 'EdgesGeometry') {
+                    const data = geomData.data;
+                    geometry = new THREE.BufferGeometry();
+                    const positions = [];
+                    data.edges.forEach(edge => {
+                        const v1 = data.vertices[edge[0]];
+                        const v2 = data.vertices[edge[1]];
+                        positions.push(v1[0], v1[1], v1[2]);
+                        positions.push(v2[0], v2[1], v2[2]);
+                    });
+                    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+                    object = new THREE.LineSegments(geometry, materials[objectData.material]);
+                }
+            }
+            
+            if (object && objectData.matrix) {
+                const matrix = new THREE.Matrix4();
+                matrix.fromArray(objectData.matrix);
+                object.applyMatrix4(matrix);
+                scene.add(object);
+            }
+        });
+        
+        // Position camera with rotation (matching trimesh visualizer)
+        const box = new THREE.Box3().setFromObject(scene);
+        const center = box.getCenter(new THREE.Vector3());
+        const size = box.getSize(new THREE.Vector3());
+        const maxDim = Math.max(size.x, size.y, size.z);
+        const distance = maxDim * 1.5;
+        
+        // Apply the same camera positioning as trimesh visualizer
+        const cameraPos = new THREE.Vector3(
+            center.x,
+            center.y - distance * 0.3,
+            center.z + distance * 0.5
+        );
+        
+        // Apply 45-degree rotation around X-axis (matching trimesh)
+        // Create rotation matrix for 45 degrees around X-axis
+        const rotationMatrix = new THREE.Matrix4().makeRotationX(Math.PI / 4);
+        
+        // Apply rotation around the scene center
+        const centerMatrix = new THREE.Matrix4().makeTranslation(-center.x, -center.y, -center.z);
+        const centerBackMatrix = new THREE.Matrix4().makeTranslation(center.x, center.y - distance * 0.9, center.z);
+        
+        // Combine transformations: translate to origin, rotate, translate back
+        const finalMatrix = new THREE.Matrix4()
+            .multiplyMatrices(centerBackMatrix, rotationMatrix)
+            .multiply(centerMatrix);
+        
+        // Apply the rotation to camera position
+        const rotatedPosition = cameraPos.clone().applyMatrix4(finalMatrix);
+        camera.position.copy(rotatedPosition);
+        camera.lookAt(center);
+        
+        // Add controls if available
+        let controls;
+        if (typeof THREE.OrbitControls !== 'undefined') {
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            
+            // Set target to center of scene for natural rotation
+            controls.target.copy(center);
+            
+            // Enable damping for smoother controls
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            
+            // Set rotation speed
+            controls.rotateSpeed = 0.5;
+            controls.zoomSpeed = 1.2;
+            controls.panSpeed = 0.8;
+            
+            // Swap rotation axes: vertical mouse movement -> horizontal rotation, horizontal mouse movement -> vertical rotation
+            const originalHandleMouseMoveRotate = controls.handleMouseMoveRotate;
+            controls.handleMouseMoveRotate = function(event) {
+                const rotateLeft = 2 * Math.PI * (event.clientY - controls.rotateStart.y) / controls.domElement.clientHeight * controls.rotateSpeed;
+                const rotateUp = 2 * Math.PI * (event.clientX - controls.rotateStart.x) / controls.domElement.clientWidth * controls.rotateSpeed;
+                
+                controls.rotateLeft(rotateLeft);
+                controls.rotateUp(rotateUp);
+                
+                controls.rotateStart.set(event.clientX, event.clientY);
+            };
+            
+            // Set distance limits
+            controls.minDistance = maxDim * 0.5;
+            controls.maxDistance = maxDim * 5;
+            
+            // Set rotation limits for better viewing angles
+            controls.maxPolarAngle = Math.PI; // Don't allow going below ground
+            controls.minPolarAngle = 0; // Don't allow going above
+            
+            // Enable all interaction types
+            controls.enableZoom = true;
+            controls.enablePan = true;
+            controls.enableRotate = true;
+            
+            // Set keyboard controls
+            controls.keys = {
+                LEFT: 'ArrowLeft',
+                UP: 'ArrowUp',
+                RIGHT: 'ArrowRight',
+                BOTTOM: 'ArrowDown'
+            };
+            
+            controls.update();
+        }
+        
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            if (controls) controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+        
+        // Handle resize
+        function onWindowResize() {
+            const containerRect = container.getBoundingClientRect();
+            camera.aspect = containerRect.width / containerRect.height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(containerRect.width, containerRect.height);
+        }
+        window.addEventListener('resize', onWindowResize);
+        
+        return { scene, camera, renderer, controls };
+        
+    } catch (error) {
+        console.error('Error creating 3D viewer:', error);
+        return null;
+    }
+}
+
+// Control functions
+function resetViewer() {
+    if (viewer3D) {
+        viewer3D.resetCamera();
+    }
+}
+
+function toggleWireframe() {
+    if (viewer3D) {
+        viewer3D.toggleWireframe();
+    }
+}
+
+function toggleBoxes() {
+    if (viewer3D) {
+        viewer3D.showOnlyContainer();
+    }
+}
+
+function showViewerError() {
+    const container = document.getElementById('threejs-container');
+    container.innerHTML = `
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <div class="text-center">
+                <div class="text-danger mb-3">
+                    <i class="fas fa-exclamation-triangle fa-3x"></i>
+                </div>
+                <h5 class="text-danger">Failed to load 3D viewer</h5>
+                <p class="text-muted">
+                    Your browser may not support WebGL or Three.js.<br>
+                    Please try using a modern browser or check the browser console for errors.
+                </p>
+                {% if session.simulation_image %}
+                <a href="{{ session.simulation_image.url }}" class="btn btn-outline-primary" target="_blank">
+                    View Static Image Instead
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    `;
+}
+
+// Clean up when leaving page
+window.addEventListener('beforeunload', function() {
+    if (viewer3D && viewer3D.dispose) {
+        viewer3D.dispose();
+    }
+});
+</script>
+{% endif %}
 {% endblock %}

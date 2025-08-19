@@ -18,6 +18,7 @@ from .models import PackingSession, BoxData
 from .forms import PackingConfigurationForm
 from .packing_engine import PackingEngine
 from .video_generator import VideoGenerator
+from .scene_exporter import generate_web_scene
 
 
 def index(request):
@@ -136,6 +137,23 @@ def results(request, session_id):
     # Convert utilization rate from decimal to percentage
     utilization_percentage = (session.utilization_rate * 100) if session.utilization_rate else 0.0
     
+    # Generate 3D scene data for interactive viewer
+    scene_data_json = None
+    try:
+        # Try to use saved scene data first, otherwise generate from database
+        if session.scene_data:
+            with session.scene_data.open('r') as f:
+                scene_data_json = f.read()
+        else:
+            scene_data_json = generate_web_scene(session)
+    except Exception as e:
+        print(f"Error loading 3D scene data: {e}")
+        # Fallback to generating from database
+        try:
+            scene_data_json = generate_web_scene(session)
+        except Exception as e2:
+            print(f"Error generating fallback 3D scene data: {e2}")
+    
     context = {
         'session': session,
         'packed_boxes': packed_boxes,
@@ -144,6 +162,7 @@ def results(request, session_id):
         'pallet_volume': session.pallet_width * session.pallet_length * session.pallet_height,
         'packed_volume': sum(box.volume for box in packed_boxes),
         'utilization_percentage': utilization_percentage,
+        'scene_data_json': scene_data_json,
     }
     
     return render(request, 'packing/results.html', context)
@@ -284,6 +303,20 @@ def run_packing_simulation(session_id):
             # Clean up temporary image file
             os.remove(image_path)
             print(f"Image saved: {image_filename}")
+        
+        # Generate and save 3D scene data using environment for correct orientations
+        try:
+            # Pass the environment to get accurate box orientations
+            scene_data_json = generate_web_scene(session, engine.env if hasattr(engine, 'env') else None)
+            if scene_data_json:
+                scene_filename = f'scene_data_{session.id}.json'
+                session.scene_data.save(
+                    scene_filename,
+                    ContentFile(scene_data_json.encode('utf-8'))
+                )
+                print(f"3D scene data saved: {scene_filename}")
+        except Exception as e:
+            print(f"Error generating 3D scene data: {e}")
         
         session.is_completed = True
         session.save()

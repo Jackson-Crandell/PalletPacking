@@ -19,6 +19,10 @@ def setup_headless_rendering():
         os.environ['MESA_GLSL_VERSION_OVERRIDE'] = '330'
         os.environ['GALLIUM_DRIVER'] = 'llvmpipe'
         os.environ['LIBGL_ALWAYS_SOFTWARE'] = '1'
+        
+        # Additional trimesh/pyglet specific settings
+        os.environ['PYGLET_HEADLESS'] = '1'
+        os.environ['PYOPENGL_PLATFORM'] = 'osmesa'
 
 # Call setup immediately
 setup_headless_rendering()

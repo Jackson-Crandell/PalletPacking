@@ -82,6 +82,14 @@ class PackingSession(models.Model):
         help_text="Generated packing visualization image"
     )
     
+    # 3D scene data for interactive viewer
+    scene_data = models.FileField(
+        upload_to='scene_data/',
+        blank=True,
+        null=True,
+        help_text="3D scene data JSON for interactive viewer"
+    )
+    
     # Metadata
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -109,6 +117,9 @@ class PackingSession(models.Model):
         if self.simulation_image:
             if os.path.isfile(self.simulation_image.path):
                 os.remove(self.simulation_image.path)
+        if self.scene_data:
+            if os.path.isfile(self.scene_data.path):
+                os.remove(self.scene_data.path)
         super().delete(*args, **kwargs)
 
 

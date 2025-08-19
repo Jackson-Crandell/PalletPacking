@@ -16,3 +16,7 @@ pyglet>=2.0.0
 pyopengl>=3.1.0
 pyopengl-accelerate>=3.1.0
 pyvirtualdisplay>=3.0
+
+# Graph libraries for trimesh
+networkx>=3.0
+scipy>=1.11.0

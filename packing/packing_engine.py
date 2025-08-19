@@ -194,6 +194,7 @@ class PackingEngine:
                         success = self.env.step(best_action)
                         
                         if success:
+                            
                             # Record successful placement
                             placed_box = self.env.space.boxes[-1]
                             box_results.append({

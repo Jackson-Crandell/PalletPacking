@@ -1,0 +1,2392 @@
+{
+  "geometries": [
+    {
+      "uuid": "container_geometry",
+      "type": "EdgesGeometry",
+      "data": {
+        "vertices": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            10.0,
+            0,
+            0
+          ],
+          [
+            10.0,
+            10.0,
+            0
+          ],
+          [
+            0,
+            10.0,
+            0
+          ],
+          [
+            0,
+            0,
+            10.0
+          ],
+          [
+            10.0,
+            0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            0,
+            10.0,
+            10.0
+          ]
+        ],
+        "edges": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            4
+          ],
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            3,
+            7
+          ]
+        ]
+      }
+    },
+    {
+      "uuid": "box_geometry_0",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 1.0,
+        "depth": 5.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_1",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 3.0,
+        "depth": 2.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_2",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 1.0,
+        "depth": 1.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_3",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 3.0,
+        "depth": 3.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_4",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 3.0,
+        "depth": 1.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_5",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 5.0,
+        "depth": 2.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_6",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 4.0,
+        "depth": 2.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_7",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 3.0,
+        "height": 2.0,
+        "depth": 5.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_8",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 5.0,
+        "depth": 1.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_9",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 1.0,
+        "depth": 1.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_10",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 4.0,
+        "depth": 4.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_11",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 5.0,
+        "height": 1.0,
+        "depth": 2.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_12",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 4.0,
+        "height": 2.0,
+        "depth": 2.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_13",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 2.0,
+        "depth": 3.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_14",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 2.0,
+        "depth": 4.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_15",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 2.0,
+        "depth": 4.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_16",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 1.0,
+        "depth": 1.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_17",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 3.0,
+        "depth": 4.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_18",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 1.0,
+        "depth": 3.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_19",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 1.0,
+        "depth": 3.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_20",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 1.0,
+        "depth": 3.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_21",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 4.0,
+        "depth": 3.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_22",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 2.0,
+        "depth": 3.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_23",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 3.0,
+        "height": 2.0,
+        "depth": 4.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_24",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 2.0,
+        "depth": 5.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_25",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 1.0,
+        "depth": 5.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_26",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 4.0,
+        "depth": 2.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_27",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 3.0,
+        "depth": 3.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_28",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 3.0,
+        "height": 4.0,
+        "depth": 2.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_29",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 2.0,
+        "depth": 2.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_30",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 4.0,
+        "height": 2.0,
+        "depth": 2.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_31",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 1.0,
+        "depth": 4.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_32",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 2.0,
+        "depth": 5.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_33",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 1.0,
+        "depth": 2.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_34",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 2.0,
+        "depth": 2.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_35",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 1.0,
+        "depth": 2.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_36",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 1.0,
+        "depth": 5.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_37",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 1.0,
+        "depth": 5.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_38",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 2.0,
+        "depth": 5.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_39",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 2.0,
+        "depth": 4.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_40",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 1.0,
+        "depth": 3.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_41",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 5.0,
+        "depth": 3.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_42",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 2.0,
+        "depth": 4.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_43",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 2.0,
+        "depth": 5.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_44",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 3.0,
+        "height": 2.0,
+        "depth": 2.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_45",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 2.0,
+        "depth": 3.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_46",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 2.0,
+        "depth": 5.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_47",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 2.0,
+        "height": 2.0,
+        "depth": 3.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_48",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 4.0,
+        "depth": 3.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    },
+    {
+      "uuid": "box_geometry_49",
+      "type": "BoxGeometry",
+      "data": {
+        "width": 1.0,
+        "height": 4.0,
+        "depth": 1.0,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    }
+  ],
+  "materials": [
+    {
+      "uuid": "container_material",
+      "type": "LineBasicMaterial",
+      "color": 6710886,
+      "linewidth": 2
+    },
+    {
+      "uuid": "box_material_0",
+      "type": "MeshPhongMaterial",
+      "color": 7057791,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_1",
+      "type": "MeshPhongMaterial",
+      "color": 12277916,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_2",
+      "type": "MeshPhongMaterial",
+      "color": 14333026,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_3",
+      "type": "MeshPhongMaterial",
+      "color": 11963534,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_4",
+      "type": "MeshPhongMaterial",
+      "color": 14310772,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_5",
+      "type": "MeshPhongMaterial",
+      "color": 12309087,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_6",
+      "type": "MeshPhongMaterial",
+      "color": 5419392,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_7",
+      "type": "MeshPhongMaterial",
+      "color": 9063306,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_8",
+      "type": "MeshPhongMaterial",
+      "color": 8410806,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_9",
+      "type": "MeshPhongMaterial",
+      "color": 11636050,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_10",
+      "type": "MeshPhongMaterial",
+      "color": 8999038,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_11",
+      "type": "MeshPhongMaterial",
+      "color": 5166658,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_12",
+      "type": "MeshPhongMaterial",
+      "color": 8358972,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_13",
+      "type": "MeshPhongMaterial",
+      "color": 7053122,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_14",
+      "type": "MeshPhongMaterial",
+      "color": 10520273,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_15",
+      "type": "MeshPhongMaterial",
+      "color": 10771065,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_16",
+      "type": "MeshPhongMaterial",
+      "color": 11291555,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_17",
+      "type": "MeshPhongMaterial",
+      "color": 4101283,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_18",
+      "type": "MeshPhongMaterial",
+      "color": 10270583,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_19",
+      "type": "MeshPhongMaterial",
+      "color": 4015966,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_20",
+      "type": "MeshPhongMaterial",
+      "color": 7765898,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_21",
+      "type": "MeshPhongMaterial",
+      "color": 12022721,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_22",
+      "type": "MeshPhongMaterial",
+      "color": 7356750,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_23",
+      "type": "MeshPhongMaterial",
+      "color": 10869454,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_24",
+      "type": "MeshPhongMaterial",
+      "color": 12746366,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_25",
+      "type": "MeshPhongMaterial",
+      "color": 7651283,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_26",
+      "type": "MeshPhongMaterial",
+      "color": 7622247,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_27",
+      "type": "MeshPhongMaterial",
+      "color": 8367771,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_28",
+      "type": "MeshPhongMaterial",
+      "color": 13621419,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_29",
+      "type": "MeshPhongMaterial",
+      "color": 13341056,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_30",
+      "type": "MeshPhongMaterial",
+      "color": 4878038,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_31",
+      "type": "MeshPhongMaterial",
+      "color": 6771646,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_32",
+      "type": "MeshPhongMaterial",
+      "color": 6047682,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_33",
+      "type": "MeshPhongMaterial",
+      "color": 5609055,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_34",
+      "type": "MeshPhongMaterial",
+      "color": 12535973,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_35",
+      "type": "MeshPhongMaterial",
+      "color": 6609800,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_36",
+      "type": "MeshPhongMaterial",
+      "color": 11952822,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_37",
+      "type": "MeshPhongMaterial",
+      "color": 4571817,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_38",
+      "type": "MeshPhongMaterial",
+      "color": 8808004,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_39",
+      "type": "MeshPhongMaterial",
+      "color": 4346485,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_40",
+      "type": "MeshPhongMaterial",
+      "color": 13131134,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_41",
+      "type": "MeshPhongMaterial",
+      "color": 12867711,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_42",
+      "type": "MeshPhongMaterial",
+      "color": 13943962,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_43",
+      "type": "MeshPhongMaterial",
+      "color": 4310402,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_44",
+      "type": "MeshPhongMaterial",
+      "color": 5883482,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_45",
+      "type": "MeshPhongMaterial",
+      "color": 5298002,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_46",
+      "type": "MeshPhongMaterial",
+      "color": 12747878,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_47",
+      "type": "MeshPhongMaterial",
+      "color": 9421440,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_48",
+      "type": "MeshPhongMaterial",
+      "color": 11094143,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    },
+    {
+      "uuid": "box_material_49",
+      "type": "MeshPhongMaterial",
+      "color": 11567545,
+      "transparent": true,
+      "opacity": 0.8,
+      "side": 2
+    }
+  ],
+  "objects": [
+    {
+      "uuid": "container_object",
+      "type": "LineSegments",
+      "name": "Container",
+      "geometry": "container_geometry",
+      "material": "container_material",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_0",
+      "type": "Mesh",
+      "name": "Box 1",
+      "geometry": "box_geometry_0",
+      "material": "box_material_0",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1.0,
+        0.5,
+        2.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_1",
+      "type": "Mesh",
+      "name": "Box 2",
+      "geometry": "box_geometry_1",
+      "material": "box_material_1",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1.0,
+        2.5,
+        1.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_2",
+      "type": "Mesh",
+      "name": "Box 3",
+      "geometry": "box_geometry_2",
+      "material": "box_material_2",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.5,
+        0.5,
+        5.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_3",
+      "type": "Mesh",
+      "name": "Box 4",
+      "geometry": "box_geometry_3",
+      "material": "box_material_3",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.5,
+        2.5,
+        3.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_4",
+      "type": "Mesh",
+      "name": "Box 5",
+      "geometry": "box_geometry_4",
+      "material": "box_material_4",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.5,
+        2.5,
+        5.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_5",
+      "type": "Mesh",
+      "name": "Box 6",
+      "geometry": "box_geometry_5",
+      "material": "box_material_5",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        2.5,
+        2.5,
+        1.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_6",
+      "type": "Mesh",
+      "name": "Box 7",
+      "geometry": "box_geometry_6",
+      "material": "box_material_6",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        4.0,
+        2.0,
+        1.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_7",
+      "type": "Mesh",
+      "name": "Box 8",
+      "geometry": "box_geometry_7",
+      "material": "box_material_7",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        3.5,
+        1.0,
+        4.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_8",
+      "type": "Mesh",
+      "name": "Box 9",
+      "geometry": "box_geometry_8",
+      "material": "box_material_8",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1.0,
+        7.5,
+        0.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_9",
+      "type": "Mesh",
+      "name": "Box 10",
+      "geometry": "box_geometry_9",
+      "material": "box_material_9",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.5,
+        0.5,
+        6.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_10",
+      "type": "Mesh",
+      "name": "Box 11",
+      "geometry": "box_geometry_10",
+      "material": "box_material_10",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1.0,
+        7.0,
+        3.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_11",
+      "type": "Mesh",
+      "name": "Box 12",
+      "geometry": "box_geometry_11",
+      "material": "box_material_11",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        4.5,
+        5.5,
+        1.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_12",
+      "type": "Mesh",
+      "name": "Box 13",
+      "geometry": "box_geometry_12",
+      "material": "box_material_12",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        3.0,
+        3.0,
+        3.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_13",
+      "type": "Mesh",
+      "name": "Box 14",
+      "geometry": "box_geometry_13",
+      "material": "box_material_13",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1.5,
+        3.0,
+        5.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_14",
+      "type": "Mesh",
+      "name": "Box 15",
+      "geometry": "box_geometry_14",
+      "material": "box_material_14",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        2.5,
+        3.0,
+        6.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_15",
+      "type": "Mesh",
+      "name": "Box 16",
+      "geometry": "box_geometry_15",
+      "material": "box_material_15",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        4.0,
+        3.0,
+        6.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_16",
+      "type": "Mesh",
+      "name": "Box 17",
+      "geometry": "box_geometry_16",
+      "material": "box_material_16",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        6.0,
+        0.5,
+        0.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_17",
+      "type": "Mesh",
+      "name": "Box 18",
+      "geometry": "box_geometry_17",
+      "material": "box_material_17",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        7.5,
+        1.5,
+        2.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_18",
+      "type": "Mesh",
+      "name": "Box 19",
+      "geometry": "box_geometry_18",
+      "material": "box_material_18",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        5.5,
+        0.5,
+        2.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_19",
+      "type": "Mesh",
+      "name": "Box 20",
+      "geometry": "box_geometry_19",
+      "material": "box_material_19",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1.0,
+        4.5,
+        1.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_20",
+      "type": "Mesh",
+      "name": "Box 21",
+      "geometry": "box_geometry_20",
+      "material": "box_material_20",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1.0,
+        4.5,
+        4.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_21",
+      "type": "Mesh",
+      "name": "Box 22",
+      "geometry": "box_geometry_21",
+      "material": "box_material_21",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        3.0,
+        8.0,
+        1.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_22",
+      "type": "Mesh",
+      "name": "Box 23",
+      "geometry": "box_geometry_22",
+      "material": "box_material_22",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        6.0,
+        4.0,
+        1.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_23",
+      "type": "Mesh",
+      "name": "Box 24",
+      "geometry": "box_geometry_23",
+      "material": "box_material_23",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        5.5,
+        7.0,
+        2.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_24",
+      "type": "Mesh",
+      "name": "Box 25",
+      "geometry": "box_geometry_24",
+      "material": "box_material_24",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.5,
+        6.0,
+        7.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_25",
+      "type": "Mesh",
+      "name": "Box 26",
+      "geometry": "box_geometry_25",
+      "material": "box_material_25",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        2.5,
+        4.5,
+        4.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_26",
+      "type": "Mesh",
+      "name": "Box 27",
+      "geometry": "box_geometry_26",
+      "material": "box_material_26",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        9.0,
+        2.0,
+        1.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_27",
+      "type": "Mesh",
+      "name": "Box 28",
+      "geometry": "box_geometry_27",
+      "material": "box_material_27",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        8.5,
+        1.5,
+        3.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_28",
+      "type": "Mesh",
+      "name": "Box 29",
+      "geometry": "box_geometry_28",
+      "material": "box_material_28",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        8.5,
+        6.0,
+        1.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_29",
+      "type": "Mesh",
+      "name": "Box 30",
+      "geometry": "box_geometry_29",
+      "material": "box_material_29",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1.0,
+        8.0,
+        6.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_30",
+      "type": "Mesh",
+      "name": "Box 31",
+      "geometry": "box_geometry_30",
+      "material": "box_material_30",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        6.0,
+        9.0,
+        1.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_31",
+      "type": "Mesh",
+      "name": "Box 32",
+      "geometry": "box_geometry_31",
+      "material": "box_material_31",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        4.0,
+        4.5,
+        2.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_32",
+      "type": "Mesh",
+      "name": "Box 33",
+      "geometry": "box_geometry_32",
+      "material": "box_material_32",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        3.0,
+        9.0,
+        5.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_33",
+      "type": "Mesh",
+      "name": "Box 34",
+      "geometry": "box_geometry_33",
+      "material": "box_material_33",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        6.0,
+        3.5,
+        4.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_34",
+      "type": "Mesh",
+      "name": "Box 35",
+      "geometry": "box_geometry_34",
+      "material": "box_material_34",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        4.5,
+        9.0,
+        3.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_35",
+      "type": "Mesh",
+      "name": "Box 36",
+      "geometry": "box_geometry_35",
+      "material": "box_material_35",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        5.5,
+        0.5,
+        5.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_36",
+      "type": "Mesh",
+      "name": "Box 37",
+      "geometry": "box_geometry_36",
+      "material": "box_material_36",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        6.0,
+        8.5,
+        4.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_37",
+      "type": "Mesh",
+      "name": "Box 38",
+      "geometry": "box_geometry_37",
+      "material": "box_material_37",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        6.0,
+        9.5,
+        4.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_38",
+      "type": "Mesh",
+      "name": "Box 39",
+      "geometry": "box_geometry_38",
+      "material": "box_material_38",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        8.5,
+        9.0,
+        2.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_39",
+      "type": "Mesh",
+      "name": "Box 40",
+      "geometry": "box_geometry_39",
+      "material": "box_material_39",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        7.5,
+        1.0,
+        6.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_40",
+      "type": "Mesh",
+      "name": "Box 41",
+      "geometry": "box_geometry_40",
+      "material": "box_material_40",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        5.5,
+        2.5,
+        1.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_41",
+      "type": "Mesh",
+      "name": "Box 42",
+      "geometry": "box_geometry_41",
+      "material": "box_material_41",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        9.5,
+        2.5,
+        3.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_42",
+      "type": "Mesh",
+      "name": "Box 43",
+      "geometry": "box_geometry_42",
+      "material": "box_material_42",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        9.0,
+        1.0,
+        7.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_43",
+      "type": "Mesh",
+      "name": "Box 44",
+      "geometry": "box_geometry_43",
+      "material": "box_material_43",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        9.5,
+        6.0,
+        4.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_44",
+      "type": "Mesh",
+      "name": "Box 45",
+      "geometry": "box_geometry_44",
+      "material": "box_material_44",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        2.5,
+        3.0,
+        9.0,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_45",
+      "type": "Mesh",
+      "name": "Box 46",
+      "geometry": "box_geometry_45",
+      "material": "box_material_45",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        5.0,
+        5.0,
+        5.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_46",
+      "type": "Mesh",
+      "name": "Box 47",
+      "geometry": "box_geometry_46",
+      "material": "box_material_46",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        7.5,
+        8.0,
+        4.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_47",
+      "type": "Mesh",
+      "name": "Box 48",
+      "geometry": "box_geometry_47",
+      "material": "box_material_47",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        5.0,
+        5.0,
+        8.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_48",
+      "type": "Mesh",
+      "name": "Box 49",
+      "geometry": "box_geometry_48",
+      "material": "box_material_48",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        4.5,
+        8.0,
+        5.5,
+        1
+      ]
+    },
+    {
+      "uuid": "box_object_49",
+      "type": "Mesh",
+      "name": "Box 50",
+      "geometry": "box_geometry_49",
+      "material": "box_material_49",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        4.5,
+        8.0,
+        7.5,
+        1
+      ]
+    }
+  ],
+  "metadata": {
+    "type": "Object",
+    "version": 4.5,
+    "generator": "PalletPacking WebSceneExporter"
+  }
+}
