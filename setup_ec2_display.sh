@@ -17,9 +17,9 @@ sudo apt-get install -y \
     xfonts-75dpi \
     xfonts-cyrillic \
     mesa-utils \
-    libgl1-mesa-glx \
+    libgl1-mesa-dev \
     libgl1-mesa-dri \
-    libglu1-mesa \
+    libglu1-mesa-dev \
     freeglut3-dev \
     libglew-dev \
     libglfw3-dev \
@@ -30,7 +30,11 @@ sudo apt-get install -y \
     libosmesa6-dev \
     libglapi-mesa \
     libegl1-mesa-dev \
-    libgles2-mesa-dev
+    libgles2-mesa-dev \
+    libxrandr2 \
+    libxinerama1 \
+    libxcursor1 \
+    libxi6
 
 echo "Packages installed successfully!"
 

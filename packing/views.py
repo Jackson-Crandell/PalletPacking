@@ -195,6 +195,11 @@ def delete_session(request, session_id):
     return render(request, 'packing/delete_session.html', context)
 
 
+def info(request):
+    """Information page with definitions and algorithm details"""
+    return render(request, 'packing/info.html')
+
+
 # Helper functions
 
 def process_csv_file(session):

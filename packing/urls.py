@@ -6,6 +6,7 @@ app_name = 'packing'
 urlpatterns = [
     # Main pages
     path('', views.index, name='index'),
+    path('info/', views.info, name='info'),
     path('configure/<int:session_id>/', views.configure, name='configure'),
     path('start/<int:session_id>/', views.start_packing, name='start_packing'),
     path('progress/<int:session_id>/', views.progress, name='progress'),

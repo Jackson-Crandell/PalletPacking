@@ -1,0 +1,178 @@
+{% extends 'packing/base.html' %}
+
+{% block title %}Information - Pallet Packing Simulator{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="mb-0">
+                    <i class="fas fa-info-circle"></i>
+                    Pallet Packing Information
+                </h2>
+            </div>
+            <div class="card-body">
+                <!-- Definitions Section -->
+                <section class="mb-5">
+                    <h3 class="text-primary mb-3">Definitions</h3>
+                    
+                    <div class="mb-4">
+                        <h5 class="fw-bold">Height Map</h5>
+                        <p>2D grid of values that represents elevation.</p>
+                        <img src="/media/info/heightmap.png" class="card-img-top" alt="Heightmap Visualization" style="max-height: 300px; object-fit: contain;">
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="fw-bold">Heightmap Minimization Heuristic</h5>
+                        <p>Scores placements that minimize the heightmap. Intuitively, this means minimizing the volume of space used underneath the placed item. This generally results in more stable packing and reduced wasted space. (See figure below for illustration.)</p>
+                        <img src="/media/info/heightmap_min.png" class="card-img-top" alt="Heightmap Minimization" style="max-height: 300px; object-fit: contain;">
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="fw-bold">Brute Force Search (3D Grid Search)</h5>
+                        <p>Given a specified resolution, objects are moved across all possible positions. Placements are only considered feasible if they do not overlap/collide with other objects or pallet size.</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="fw-bold">Empty Maximal Space</h5>
+                        <p>Largest empty orthogonal spaces whose sizes cannot extend more along the coordinate axes from its front-left-bottom corner.</p>
+                    </div>
+                </section>
+
+                <!-- Assumptions Section -->
+                <section class="mb-5">
+                    <h3 class="text-primary mb-3">Assumptions</h3>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Object weight/density is ignored</li>
+                        <li class="list-group-item">Specified packing order is followed (we pack boxes in that order)</li>
+                    </ul>
+                </section>
+
+                <!-- User Specified Parameters Section -->
+                <section class="mb-5">
+                    <h3 class="text-primary mb-3">User Specified Parameters</h3>
+                    
+                    <div class="mb-4">
+                        <h5 class="fw-bold">Pallet Dimensions</h5>
+                        <p>Custom dimensions for the pallet container.</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="fw-bold">Packing Algorithm (Random vs. Corner Height)</h5>
+                        <p>Choice between different packing strategies.</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="fw-bold">Rotation</h5>
+                        <ul class="list-unstyled ms-3">
+                            <li><strong>No Rotation:</strong> Only XY rotation (about the z-axis) is allowed.</li>
+                            <li><strong>Full Rotation:</strong> Items can rotate in 90° increments.</li>
+                        </ul>
+                        <p class="text-muted">For simplicity, all items are treated as boxes, since angled placements on pallets can lead to instability.</p>
+                    </div>
+                </section>
+
+                <!-- Algorithms Section -->
+                <section class="mb-5">
+                    <h3 class="text-primary mb-3">Algorithms</h3>
+                    
+                    <div class="mb-4">
+                        <h4 class="text-secondary">Random Algorithm</h4>
+                        <p>For this, we first do a brute force search and randomly sample from list of feasible candidates.</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4 class="text-secondary">Corner Height Algorithm</h4>
+                        <ul class="list-unstyled ms-3">
+                            <li>• Performs a brute force search to find feasible placements</li>
+                            <li>• For each placement, a score is given</li>
+                            <li>• Whether it is in a corner</li>
+                            <li>• Heightmap minimization</li>
+                            <li>• Choose the placement with the highest score</li>
+                        </ul>
+                        
+                        <div class="alert alert-info mt-3">
+                            <strong>Note:</strong> Other heuristics can also be applied, such as rewarding lower z-heights or using empty maximal space points.
+                        </div>
+                        
+                        <div class="alert alert-secondary mt-3">
+                            <strong>Alternative Approach:</strong> Another option would be to use Deep Reinforcement Learning to solve this problem (see references for details).
+                        </div>
+                    </div>
+                </section>
+
+                <!-- References Section -->
+                <section class="mb-4">
+                    <h3 class="text-primary mb-3">References</h3>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <a href="https://arxiv.org/abs/1812.04093" target="_blank" class="text-decoration-none">
+                                Stable bin packing of non-convex 3D objects with a robot manipulator
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="https://openreview.net/pdf?id=bfuGjlCwAq" target="_blank" class="text-decoration-none">
+                                Learning Efficient Online 3D Bin Packing on Packing Configuration Trees
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- Back to Main Button -->
+                <div class="text-center mt-4">
+                    <a href="{% url 'packing:index' %}" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Main Page
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .card-header h2 {
+        color: #495057;
+    }
+    
+    .text-primary {
+        color: #007bff !important;
+    }
+    
+    .text-secondary {
+        color: #6c757d !important;
+    }
+    
+    .list-group-item {
+        border: none;
+        padding-left: 0;
+    }
+    
+    .alert {
+        border-left: 4px solid;
+    }
+    
+    .alert-info {
+        border-left-color: #17a2b8;
+    }
+    
+    .alert-secondary {
+        border-left-color: #6c757d;
+    }
+    
+    section {
+        scroll-margin-top: 100px;
+    }
+    
+    a {
+        color: #007bff;
+    }
+    
+    a:hover {
+        color: #0056b3;
+    }
+</style>
+{% endblock %}

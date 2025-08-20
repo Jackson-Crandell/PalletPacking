@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-0g67&!**1^+0_2%o$^2-bz0nldut5^^#cb9cgk*9ui^@kj%-sb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', '*']
+ALLOWED_HOSTS = ['www.palletpackoptimizer.xyz','palletpackoptimizer.xyz', '*']
 
 
 # Application definition

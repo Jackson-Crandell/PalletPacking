@@ -40,15 +40,16 @@ class PackingContinuous(gym.Env):
             self.box_creator = FixedBoxCreator(item_set)
 
         # Generator for train/test data
-        elif not load_test_data:
-            assert item_set is not None
-            self.box_creator = RandomBoxCreator(item_set)
-            assert isinstance(self.box_creator, BoxCreator)
+        # elif not load_test_data:
+        #     assert item_set is not None
+        #     self.box_creator = RandomBoxCreator(item_set)
+        #     assert isinstance(self.box_creator, BoxCreator)
+        elif load_test_data:
+            self.box_creator = LoadBoxCreator(data_name)
+
 
         self.sample_from_distribution = sample_from_distribution
-        # if load_test_data:
-        #     self.box_creator = LoadBoxCreator(data_name)
-
+        
         self.test = load_test_data
         self.observation_space = gym.spaces.Box(low=0.0, high=self.space.height,
                                                 shape=((self.internal_node_holder + self.leaf_node_holder + self.next_holder) * 9,))
