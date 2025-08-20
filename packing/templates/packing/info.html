@@ -1,4 +1,5 @@
 {% extends 'packing/base.html' %}
+{% load static %}
 
 {% block title %}Information - Pallet Packing Simulator{% endblock %}
 
@@ -20,13 +21,13 @@
                     <div class="mb-4">
                         <h5 class="fw-bold">Height Map</h5>
                         <p>2D grid of values that represents elevation.</p>
-                        <img src="/media/info/heightmap.png" class="card-img-top" alt="Heightmap Visualization" style="max-height: 300px; object-fit: contain;">
+                        <img src="{% static 'info/heightmap.png' %}" class="card-img-top" alt="Heightmap Visualization" style="max-height: 300px; object-fit: contain;">
                     </div>
 
                     <div class="mb-4">
                         <h5 class="fw-bold">Heightmap Minimization Heuristic</h5>
                         <p>Scores placements that minimize the heightmap. Intuitively, this means minimizing the volume of space used underneath the placed item. This generally results in more stable packing and reduced wasted space. (See figure below for illustration.)</p>
-                        <img src="/media/info/heightmap_min.png" class="card-img-top" alt="Heightmap Minimization" style="max-height: 300px; object-fit: contain;">
+                        <img src="{% static 'info/heightmap_min.png' %}" class="card-img-top" alt="Heightmap Minimization" style="max-height: 300px; object-fit: contain;">
                     </div>
 
                     <div class="mb-4">
